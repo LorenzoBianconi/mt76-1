@@ -1,5 +1,5 @@
 diff --git a/package/kernel/mt76/Makefile b/package/kernel/mt76/Makefile
-index c0b276a..1397fae 100644
+index 2906849..3133788 100644
 --- a/package/kernel/mt76/Makefile
 +++ b/package/kernel/mt76/Makefile
 @@ -6,10 +6,10 @@ PKG_RELEASE=1
@@ -9,15 +9,14 @@ index c0b276a..1397fae 100644
 -PKG_SOURCE_URL:=https://github.com/openwrt/mt76
 +PKG_SOURCE_URL:=https://github.com/Komodowifi/mt76.git
  PKG_SOURCE_PROTO:=git
--PKG_SOURCE_DATE:=2018-06-18
--PKG_SOURCE_VERSION:=f4506593349608e8a135ba7b465297260a7057f1
-+PKG_SOURCE_DATE:=2018-08-06
+ PKG_SOURCE_DATE:=2018-07-13
+-PKG_SOURCE_VERSION:=67803752363db5e81c7a74a9491a3041aa776284
 +PKG_SOURCE_VERSION:=de3009b5b2ff80896363af3bfee2914d0cea31ab
- PKG_MIRROR_HASH:=00c8d564b6aed091728eb66f35d356c44cd90467f80666b4f19c9e71bb2fc290
+ PKG_MIRROR_HASH:=733030674a782d96c5ea2fcbcbc2de5486f645d9fb4a84cfb74246a78b459569
  
  PKG_MAINTAINER:=Felix Fietkau <nbd@nbd.name>
-@@ -50,6 +50,15 @@ define KernelPackage/mt76x2
-   AUTOLOAD:=$(call AutoProbe,mt76x2e)
+@@ -41,6 +41,15 @@ define KernelPackage/mt76-core
+ 	$(PKG_BUILD_DIR)/mt76.ko
  endef
  
 +define KernelPackage/mt76x0
@@ -25,15 +24,15 @@ index c0b276a..1397fae 100644
 +  TITLE:=MediaTek MT76x0 wireless driver
 +  DEPENDS+=+kmod-mt76-core
 +  FILES:=\
-+    $(PKG_BUILD_DIR)/mt76x0e.ko
++	$(PKG_BUILD_DIR)/mt76x0e.ko
 +#  AUTOLOAD:=$(call AutoProbe,mt76x0e)
 +endef
 +
- define KernelPackage/mt7603
+ define KernelPackage/mt76x2
    $(KernelPackage/mt76-default)
-   TITLE:=MediaTek MT7603 wireless driver
-@@ -92,6 +101,13 @@ define KernelPackage/mt76x2/install
- 		$(1)/lib/firmware
+   TITLE:=MediaTek MT76x2 wireless driver
+@@ -84,6 +93,13 @@ define Package/kmod-mt76/install
+ 	true
  endef
  
 +define KernelPackage/mt76x0/install
@@ -43,9 +42,9 @@ index c0b276a..1397fae 100644
 +		$(1)/lib/firmware
 +endef
 +
- define KernelPackage/mt7603/install
+ define KernelPackage/mt76x2/install
  	$(INSTALL_DIR) $(1)/lib/firmware
- 	cp $(if $(CONFIG_TARGET_ramips_mt76x8), \
+ 	cp \
 @@ -105,6 +121,7 @@ define KernelPackage/mt7603/install
  endef
  
